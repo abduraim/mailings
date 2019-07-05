@@ -15,6 +15,8 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->comment('Название компании');
+            $table->text('description')->comment('Описание компании');
             $table->timestamps();
         });
     }
