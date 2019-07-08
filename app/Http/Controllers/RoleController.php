@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
-class UserController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,20 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        $roles = Role::all();
 
-        $user = auth()->user();
-
-        if ($user && $user->can('watch users')) {
-
-            $users = User::all();
-
-            return view('users/index', [
-                'users' => $users,
-            ]);
-        }
-
-        abort(403);
-
+        return view('roles/index', ['roles' => $roles]);
     }
 
     /**
@@ -39,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return 'create';
     }
 
     /**
@@ -50,59 +38,53 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return 'store';
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        $roles = Role::all();
-
-        return view('users/item', ['user' => $user, 'roles' => $roles]);
+        $role = Role::findById($id);
+        $users = User::role($role->name)->get();
+        return view('roles.item', ['role' => $role, 'users' => $users]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        //
+        return 'edit';
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        return 'update';
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
-    }
-
-
-    public function assign_roles(Request $request)
-    {
-        dd($request);
+        return 'destroy';
     }
 }

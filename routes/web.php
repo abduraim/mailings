@@ -20,4 +20,16 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('companies', 'CompanyController');
+
+
+Route::post('/users/{id}/assign_roles', "UserController@assign_roles")->name('user.asign_roles');
 Route::resource('users', 'UserController');
+
+
+
+Route::resource('roles', 'RoleController');
+
+
+
+
+
